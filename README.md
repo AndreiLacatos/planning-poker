@@ -1,1 +1,1 @@
-# Planning poker
+# Planning Poker
