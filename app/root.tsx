@@ -1,4 +1,6 @@
 import { Links, Meta, Outlet, Scripts } from '@remix-run/react';
+import { TRPCReactProvider } from './react';
+import Mock from './components/Mock';
 
 export default function App() {
   return (
@@ -10,7 +12,10 @@ export default function App() {
       </head>
       <body>
         <h1>Hello world!</h1>
-        <Outlet />
+        <TRPCReactProvider>
+          <Outlet />
+          <Mock />
+        </TRPCReactProvider>
 
         <Scripts />
       </body>
