@@ -1,6 +1,10 @@
 import { createRequestHandler } from '@remix-run/express';
 import { type ServerBuild } from '@remix-run/node';
 import express from 'express';
+import { applyWSSHandler } from '@trpc/server/adapters/ws';
+import { WebSocketServer } from 'ws';
+import { appRouter } from './trpc/root.js';
+import { createTRPCContext } from './trpc/trpc.js';
 
 const viteDevServer =
   process.env.NODE_ENV === 'production'
@@ -28,13 +32,32 @@ if (viteDevServer) {
 
 app.use(express.static('build/client', { maxAge: '1h' }));
 
+const wss = new WebSocketServer({
+  port: 3001,
+});
+const handler = applyWSSHandler({
+  wss,
+  router: appRouter,
+  createContext: createTRPCContext,
+});
+wss.on('connection', (ws) => {
+  console.log(`Connection opened (${wss.clients.size})`);
+  ws.once('close', () => {
+    console.log(`Connection closed (${wss.clients.size})`);
+  });
+});
+console.log('✅ WebSocket Server listening on ws://localhost:3001');
+process.on('SIGTERM', () => {
+  console.log('SIGTERM');
+  handler.broadcastReconnectNotification();
+  wss.close();
+});
+
 async function getBuild() {
   try {
     const build = viteDevServer
       ? await viteDevServer.ssrLoadModule('virtual:remix/server-build')
-      : // @ts-expect-error - the file might not exist yet but it will
-        // esl  t-disable-next-line import/no-unresolved
-        await import('../build/server/remix.js');
+      : await import('../build/server/remix.js');
 
     return { build: build as unknown as ServerBuild, error: null };
   } catch (error) {

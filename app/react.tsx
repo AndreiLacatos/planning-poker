@@ -3,7 +3,13 @@ import SuperJSON from 'superjson';
 import { createTRPCReact } from '@trpc/react-query';
 import { AppRouter } from 'server/trpc/root';
 import { useState } from 'react';
-import { loggerLink, unstable_httpBatchStreamLink } from '@trpc/client';
+import {
+  createWSClient,
+  loggerLink,
+  splitLink,
+  unstable_httpBatchStreamLink,
+  wsLink,
+} from '@trpc/client';
 
 function getBaseUrl() {
   if (typeof window !== 'undefined') return window.location.origin;
@@ -39,8 +45,16 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
             process.env.NODE_ENV === 'development' ||
             (op.direction === 'down' && op.result instanceof Error),
         }),
-        unstable_httpBatchStreamLink({
-          url: getBaseUrl() + '/api/trpc',
+        splitLink({
+          condition: (op) => op.type === 'subscription',
+          true: wsLink({
+            client: createWSClient({
+              url: `ws://localhost:3001`,
+            }),
+          }),
+          false: unstable_httpBatchStreamLink({
+            url: getBaseUrl() + '/api/trpc',
+          }),
         }),
       ],
     })
