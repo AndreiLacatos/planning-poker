@@ -1,8 +1,6 @@
 import { Links, Meta, Outlet, Scripts } from '@remix-run/react';
 import { TRPCReactProvider } from './react';
-import Mock from './components/Mock';
 import { ClientOnly } from 'remix-utils/client-only';
-import Name from './components/Name';
 import AuthProvider from './auth/AuthProvider';
 
 export default function App() {
@@ -17,13 +15,11 @@ export default function App() {
         <h1>Hello world!</h1>
         <ClientOnly>
           {() => (
-            <TRPCReactProvider>
-              <AuthProvider>
+            <AuthProvider>
+              <TRPCReactProvider>
                 <Outlet />
-                <Mock />
-                <Name />
-              </AuthProvider>
-            </TRPCReactProvider>
+              </TRPCReactProvider>
+            </AuthProvider>
           )}
         </ClientOnly>
         <Scripts />

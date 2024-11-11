@@ -22,7 +22,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   if (cookies[AUTH_COOKIE]) {
     user = JSON.parse(atob(cookies[AUTH_COOKIE])) as UserIdentity;
   }
-  console.log(user);
   return (
     <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
   );
