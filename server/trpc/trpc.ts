@@ -4,7 +4,7 @@ import superjson from 'superjson';
 import { ZodError } from 'zod';
 import { CreateWSSContextFnOptions } from '@trpc/server/adapters/ws';
 import { parse } from 'cookie';
-import { AUTH_COOKIE, UserIdentity } from 'server/http/auth';
+import { AUTH_COOKIE, UserIdentity } from 'server/http/types';
 
 export const createTRPCContext = (
   opts: FetchCreateContextFnOptions | CreateWSSContextFnOptions

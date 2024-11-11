@@ -2,6 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import z from 'zod';
 import { v4 as uuid } from 'uuid';
+import { AUTH_COOKIE, UserIdentity } from './types';
 
 const authSchema = z.object({
   userName: z
@@ -10,12 +11,6 @@ const authSchema = z.object({
     .max(25, 'Username must not exceed 25 characters!'),
 });
 
-export interface UserIdentity {
-  userName: string;
-  userId: string;
-}
-
-export const AUTH_COOKIE = 'identity';
 export function setupAuth(app: express.Express) {
   app.use(cookieParser());
   app.use(express.json());
