@@ -49,7 +49,7 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
           condition: (op) => op.type === 'subscription',
           true: wsLink({
             client: createWSClient({
-              url: `ws://localhost:3001`,
+              url: `ws://localhost:3000`,
             }),
           }),
           false: unstable_httpBatchStreamLink({
