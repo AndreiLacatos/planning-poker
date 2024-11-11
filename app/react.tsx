@@ -37,7 +37,6 @@ export const api = createTRPCReact<AppRouter>();
 
 export function TRPCReactProvider(props: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
-  const { user } = useAuth();
 
   const [trpcClient] = useState(() =>
     api.createClient({
@@ -49,7 +48,7 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
             (op.direction === 'down' && op.result instanceof Error),
         }),
         splitLink({
-          condition: (op) => op.type === 'subscription' && !!user,
+          condition: (op) => op.type === 'subscription',
           true: wsLink({
             client: createWSClient({
               url: getBaseUrl(),
