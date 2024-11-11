@@ -1,4 +1,4 @@
-import { createTRPCRouter, publicProcedure } from '../trpc';
+import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import EventEmitter from 'events';
 import { observable } from '@trpc/server/observable';
 
@@ -7,6 +7,9 @@ const ee = new EventEmitter();
 export const helloRouter = createTRPCRouter({
   hello: publicProcedure.query(() => {
     return 'Hello';
+  }),
+  name: protectedProcedure.query(({ ctx }) => {
+    return `Hello ${ctx.identity.userName}`;
   }),
   sub: publicProcedure.subscription(() => {
     // return an `observable` with a callback which is triggered immediately
