@@ -10,6 +10,11 @@ export function setupWsServer(httpServer: Server) {
   });
 
   httpServer.on('upgrade', (req, socket, head) => {
+    if (!req.headers.cookie || !req.headers.cookie.includes('identity')) {
+      socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
+      socket.destroy();
+      return;
+    }
     wss.handleUpgrade(req, socket, head, (ws) => {
       wss.emit('connection', ws, req);
     });
