@@ -12,9 +12,10 @@ import {
 } from '@trpc/client';
 
 function getBaseUrl() {
-  if (typeof window !== 'undefined') return window.location.origin;
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-  return `http://localhost:${process.env.PORT ?? 3000}`;
+  if (!window) {
+    throw new Error('TRPC not available on server side!');
+  }
+  return window.location.origin;
 }
 
 const createQueryClient = () =>
@@ -49,7 +50,7 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
           condition: (op) => op.type === 'subscription',
           true: wsLink({
             client: createWSClient({
-              url: `ws://localhost:3000`,
+              url: getBaseUrl(),
             }),
           }),
           false: unstable_httpBatchStreamLink({
