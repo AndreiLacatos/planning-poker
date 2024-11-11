@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext } from 'react';
+import { createContext, ReactNode, useContext, useEffect } from 'react';
 import { parse } from 'cookie';
 import { AUTH_COOKIE, UserIdentity } from 'server/http/types';
 

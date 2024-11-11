@@ -2,6 +2,7 @@ import { Links, Meta, Outlet, Scripts } from '@remix-run/react';
 import { TRPCReactProvider } from './react';
 import { ClientOnly } from 'remix-utils/client-only';
 import AuthProvider from './auth/AuthProvider';
+import UserGuard from './components/auth/UserGuard';
 
 export default function App() {
   return (
@@ -12,12 +13,13 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <h1>Hello world!</h1>
         <ClientOnly>
           {() => (
             <AuthProvider>
               <TRPCReactProvider>
-                <Outlet />
+                <UserGuard>
+                  <Outlet />
+                </UserGuard>
               </TRPCReactProvider>
             </AuthProvider>
           )}
