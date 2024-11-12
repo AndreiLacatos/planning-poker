@@ -3,6 +3,7 @@ import { TRPCReactProvider } from './react';
 import { ClientOnly } from 'remix-utils/client-only';
 import AuthProvider from './auth/AuthProvider';
 import UserGuard from './components/auth/UserGuard';
+import { CookiesProvider } from 'react-cookie';
 
 export default function App() {
   return (
@@ -15,13 +16,15 @@ export default function App() {
       <body>
         <ClientOnly>
           {() => (
-            <AuthProvider>
-              <TRPCReactProvider>
-                <UserGuard>
-                  <Outlet />
-                </UserGuard>
-              </TRPCReactProvider>
-            </AuthProvider>
+            <CookiesProvider>
+              <AuthProvider>
+                <TRPCReactProvider>
+                  <UserGuard>
+                    <Outlet />
+                  </UserGuard>
+                </TRPCReactProvider>
+              </AuthProvider>
+            </CookiesProvider>
           )}
         </ClientOnly>
         <Scripts />

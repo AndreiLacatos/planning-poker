@@ -1,6 +1,12 @@
-import { createContext, ReactNode, useContext, useEffect } from 'react';
-import { parse } from 'cookie';
-import { AUTH_COOKIE, UserIdentity } from 'server/http/types';
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import { UserIdentity } from 'server/http/types';
+import { useCookies } from 'react-cookie';
 
 interface AuthContextType {
   user: UserIdentity | undefined;
@@ -17,11 +23,13 @@ export const useAuth = (): AuthContextType => {
 };
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-  let user: UserIdentity | undefined = undefined;
-  const cookies = parse(document.cookie);
-  if (cookies[AUTH_COOKIE]) {
-    user = JSON.parse(atob(cookies[AUTH_COOKIE])) as UserIdentity;
-  }
+  const [{ identity: identityCookie }] = useCookies(['identity']);
+  const [user, setUser] = useState<UserIdentity | undefined>(undefined);
+  useEffect(() => {
+    if (identityCookie) {
+      setUser(JSON.parse(atob(identityCookie)) as UserIdentity);
+    }
+  }, [identityCookie]);
   return (
     <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
   );

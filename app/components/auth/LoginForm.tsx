@@ -15,10 +15,7 @@ const LoginForm = () => {
         .min(3, 'User name must be at least 3 characters')
         .max(25, 'User name must less than 25 characters'),
     }),
-    onSubmit: async (values) => {
-      await axios.post('/auth', values);
-      location.reload();
-    },
+    onSubmit: (values) => axios.post('/auth', values),
   });
 
   return (
