@@ -4,6 +4,8 @@ import z from 'zod';
 import { getRoom } from 'server/services/rooms/get';
 import type { inferProcedureOutput } from '@trpc/server';
 import { joinRoom } from 'server/services/rooms/join';
+import { leaveRoom } from 'server/services/rooms/leave';
+import { observable } from '@trpc/server/observable';
 
 type RoomRouter = typeof roomRouter;
 
@@ -32,4 +34,15 @@ export const roomRouter = createTRPCRouter({
     .mutation(({ input: { roomId }, ctx: { identity } }) =>
       joinRoom({ roomId, user: identity })
     ),
+  events: protectedProcedure
+    .input(z.object({ roomId: z.string().uuid() }))
+    .subscription(({ ctx: { identity }, input: { roomId } }) => {
+      return observable<void>(() => {
+        return () => {
+          try {
+            leaveRoom({ roomId, user: identity });
+          } catch {}
+        };
+      });
+    }),
 });
