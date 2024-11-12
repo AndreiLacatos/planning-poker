@@ -8,6 +8,8 @@ type RoomRouter = typeof roomRouter;
 
 export type Room = inferProcedureOutput<RoomRouter['fetch']>;
 
+export type Participant = Room['participants'][0];
+
 export const roomRouter = createTRPCRouter({
   fetch: protectedProcedure
     .input(z.object({ roomId: z.string().uuid() }))

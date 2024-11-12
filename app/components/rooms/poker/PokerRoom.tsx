@@ -3,6 +3,8 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { api } from '~/react';
 import { useEffect } from 'react';
 import { useNavigate } from '@remix-run/react';
+import { useRoomStore } from '~/store/room';
+import VotingTable from './VotingTable';
 
 interface PropTypes {
   roomId: string;
@@ -13,13 +15,22 @@ const PokerRoom = ({ roomId }: PropTypes) => {
   const { isLoading, data, error } = api.rooms.fetch.useQuery({
     roomId,
   });
-
+  const { update } = useRoomStore();
   useEffect(() => {
     if (error?.data?.code === 'NOT_FOUND') {
       message.error('Room not found!');
       navigate('/');
     }
   }, [error?.data?.code]);
+
+  useEffect(() => {
+    if (data) {
+      update(data);
+    }
+    return () => {
+      update(undefined);
+    };
+  }, [data]);
 
   if (isLoading) {
     return (
@@ -30,11 +41,9 @@ const PokerRoom = ({ roomId }: PropTypes) => {
   }
 
   return (
-    <>
-      <Card style={{ width: '90%', height: '44rem' }}>
-        Poker room: {data?.name}
-      </Card>
-    </>
+    <Card style={{ width: '90%', height: '44rem' }}>
+      <VotingTable />
+    </Card>
   );
 };
 
