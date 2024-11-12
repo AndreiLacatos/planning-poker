@@ -1,9 +1,9 @@
-import PokerRoom from '~/components/rooms/poker/PokerRoom';
 import { useParams } from '@remix-run/react';
+import PokerLobby from '~/components/rooms/poker/PokerLobby';
 
 const Room = () => {
   const { roomId } = useParams<{ roomId: string }>();
-  return <PokerRoom roomId={roomId!} />;
+  return <PokerLobby roomId={roomId!} />;
 };
 
 export default Room;

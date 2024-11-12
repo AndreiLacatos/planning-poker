@@ -1,4 +1,4 @@
-import { Button, Modal } from 'antd';
+import { Button } from 'antd';
 import { useState } from 'react';
 import CreateRoomModal from './CreateRoomModal';
 

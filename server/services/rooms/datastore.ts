@@ -37,3 +37,7 @@ export const get = (id: string): Room | undefined => {
 export const remove = (id: string): void => {
   rooms.delete(id);
 };
+
+export const update = (room: Room): void => {
+  rooms.set(room.id, room);
+};

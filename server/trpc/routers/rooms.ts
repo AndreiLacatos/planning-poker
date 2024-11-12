@@ -3,6 +3,7 @@ import { createTRPCRouter, protectedProcedure } from '../trpc';
 import z from 'zod';
 import { getRoom } from 'server/services/rooms/get';
 import type { inferProcedureOutput } from '@trpc/server';
+import { joinRoom } from 'server/services/rooms/join';
 
 type RoomRouter = typeof roomRouter;
 
@@ -26,4 +27,9 @@ export const roomRouter = createTRPCRouter({
     .mutation(({ ctx, input }) => {
       return createRoom({ name: input.name, user: ctx.identity });
     }),
+  join: protectedProcedure
+    .input(z.object({ roomId: z.string().uuid() }))
+    .mutation(({ input: { roomId }, ctx: { identity } }) =>
+      joinRoom({ roomId, user: identity })
+    ),
 });

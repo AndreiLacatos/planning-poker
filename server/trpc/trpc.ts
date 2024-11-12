@@ -6,6 +6,7 @@ import { parse } from 'cookie';
 import { AUTH_COOKIE, UserIdentity } from 'server/http/types';
 import * as trpcExpress from '@trpc/server/adapters/express';
 import { RoomNotFoundError } from 'server/services/rooms/errors/RoomNotFound';
+import { AlreadyJoinedError } from 'server/services/rooms/errors/AlreadyJoined';
 
 export const createTrpcHttpContext = (
   opts: trpcExpress.CreateExpressContextOptions
@@ -52,6 +53,13 @@ const procedure = t.procedure.use(async ({ next, ctx }) => {
     if (result.error.cause instanceof RoomNotFoundError) {
       throw new TRPCError({
         code: 'NOT_FOUND',
+        cause: result.error,
+        message: result.error.message,
+      });
+    }
+    if (result.error.cause instanceof AlreadyJoinedError) {
+      throw new TRPCError({
+        code: 'BAD_REQUEST',
         cause: result.error,
         message: result.error.message,
       });
