@@ -1,11 +1,26 @@
-import { useAuth } from '~/auth/AuthProvider';
+import { Button, Card, Flex } from 'antd';
 
-export default function Something() {
-  const { user } = useAuth();
-
+export default function Index() {
   return (
-    <main>
-      <h1>Hello {user?.userName}</h1>
-    </main>
+    <Card
+      style={{
+        width: '35%',
+        padding: '4rem',
+        boxSizing: 'border-box',
+      }}
+    >
+      <Flex
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '2rem',
+        }}
+      >
+        <Button type="primary" size="large">
+          Join room
+        </Button>
+        <Button size="large">Create room</Button>
+      </Flex>
+    </Card>
   );
 }
