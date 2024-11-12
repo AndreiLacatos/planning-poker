@@ -1,4 +1,5 @@
 import { Button, Card, Flex } from 'antd';
+import CreateRoomTrigger from '~/components/rooms/create/CreateRoomTrigger';
 
 export default function Index() {
   return (
@@ -19,7 +20,7 @@ export default function Index() {
         <Button type="primary" size="large">
           Join room
         </Button>
-        <Button size="large">Create room</Button>
+        <CreateRoomTrigger />
       </Flex>
     </Card>
   );

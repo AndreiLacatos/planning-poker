@@ -1,30 +1,35 @@
 import { initTRPC, TRPCError } from '@trpc/server';
-import { FetchCreateContextFnOptions } from 'node_modules/@trpc/server/dist/adapters/fetch/types';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
 import { CreateWSSContextFnOptions } from '@trpc/server/adapters/ws';
 import { parse } from 'cookie';
 import { AUTH_COOKIE, UserIdentity } from 'server/http/types';
+import * as trpcExpress from '@trpc/server/adapters/express';
 
-export const createTRPCContext = (
-  opts: FetchCreateContextFnOptions | CreateWSSContextFnOptions
+export const createTrpcHttpContext = (
+  opts: trpcExpress.CreateExpressContextOptions
 ) => {
-  let identity: UserIdentity | undefined = undefined;
-  if (typeof opts.req.headers.get === 'function') {
-    const cookieString = opts.req.headers.get('cookie');
-    if (cookieString) {
-      const cookies = parse(cookieString);
-      if (cookies[AUTH_COOKIE]) {
-        identity = JSON.parse(
-          Buffer.from(cookies[AUTH_COOKIE], 'base64').toString('utf-8')
-        ) as UserIdentity;
-      }
-    }
-  }
-  return { identity };
+  return { identity: getIdentity(opts.req.cookies) };
 };
 
-const t = initTRPC.context<typeof createTRPCContext>().create({
+export const createTrpcWsContext = (opts: CreateWSSContextFnOptions) => {
+  let cookieString = opts.req.headers.cookie;
+  return { identity: getIdentity(parse(cookieString || '')) };
+};
+
+const getIdentity = (
+  cookies: Record<string, string | undefined>
+): UserIdentity | undefined => {
+  let identity: UserIdentity | undefined = undefined;
+  if (cookies[AUTH_COOKIE]) {
+    identity = JSON.parse(
+      Buffer.from(cookies[AUTH_COOKIE], 'base64').toString('utf-8')
+    ) as UserIdentity;
+  }
+  return identity;
+};
+
+const t = initTRPC.context<typeof createTrpcWsContext>().create({
   transformer: superjson,
   errorFormatter({ shape, error }) {
     return {

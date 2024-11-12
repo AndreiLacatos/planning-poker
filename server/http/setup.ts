@@ -1,6 +1,9 @@
 import express from 'express';
 import { createRequestHandler } from '@remix-run/express';
 import { type ServerBuild } from '@remix-run/node';
+import * as trpcExpress from '@trpc/server/adapters/express';
+import { appRouter } from 'server/trpc/root.js';
+import { createTrpcHttpContext } from 'server/trpc/trpc.js';
 
 export async function setupRemixServer(app: express.Express) {
   const viteDevServer =
@@ -21,6 +24,19 @@ export async function setupRemixServer(app: express.Express) {
   }
 
   app.use(express.static('build/client', { maxAge: '1h' }));
+
+  app.use(
+    '/api/trpc',
+    trpcExpress.createExpressMiddleware({
+      router: appRouter,
+      createContext: createTrpcHttpContext,
+      onError({ path, error }) {
+        console.error(
+          `❌ tRPC failed on ${path ?? '<no-path>'}: ${error.message}`
+        );
+      },
+    })
+  );
 
   async function getBuild() {
     try {
