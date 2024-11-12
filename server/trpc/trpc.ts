@@ -5,6 +5,7 @@ import { CreateWSSContextFnOptions } from '@trpc/server/adapters/ws';
 import { parse } from 'cookie';
 import { AUTH_COOKIE, UserIdentity } from 'server/http/types';
 import * as trpcExpress from '@trpc/server/adapters/express';
+import { RoomNotFoundError } from 'server/services/rooms/errors/RoomNotFound';
 
 export const createTrpcHttpContext = (
   opts: trpcExpress.CreateExpressContextOptions
@@ -45,9 +46,23 @@ const t = initTRPC.context<typeof createTrpcWsContext>().create({
 
 export const createTRPCRouter = t.router;
 
-export const publicProcedure = t.procedure;
+const procedure = t.procedure.use(async ({ next, ctx }) => {
+  const result = await next({ ctx });
+  if (!result.ok) {
+    if (result.error.cause instanceof RoomNotFoundError) {
+      throw new TRPCError({
+        code: 'NOT_FOUND',
+        cause: result.error,
+        message: result.error.message,
+      });
+    }
+  }
+  return result;
+});
 
-export const protectedProcedure = t.procedure.use(({ next, ctx }) => {
+export const publicProcedure = procedure;
+
+export const protectedProcedure = procedure.use(({ next, ctx }) => {
   if (!ctx.identity) {
     throw new TRPCError({
       code: 'UNAUTHORIZED',

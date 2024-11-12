@@ -1,8 +1,17 @@
 import { createRoom } from 'server/services/rooms/create';
 import { createTRPCRouter, protectedProcedure } from '../trpc';
 import z from 'zod';
+import { getRoom } from 'server/services/rooms/get';
+import type { inferProcedureOutput } from '@trpc/server';
+
+type RoomRouter = typeof roomRouter;
+
+export type Room = inferProcedureOutput<RoomRouter['fetch']>;
 
 export const roomRouter = createTRPCRouter({
+  fetch: protectedProcedure
+    .input(z.object({ roomId: z.string().uuid() }))
+    .query(({ input: { roomId } }) => getRoom(roomId)),
   create: protectedProcedure
     .input(
       z.object({

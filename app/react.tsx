@@ -10,7 +10,6 @@ import {
   unstable_httpBatchStreamLink,
   wsLink,
 } from '@trpc/client';
-import { useAuth } from './auth/AuthProvider';
 
 function getBaseUrl() {
   if (!window) {
@@ -24,6 +23,8 @@ const createQueryClient = () =>
     defaultOptions: {
       queries: {
         staleTime: 30 * 1000,
+        refetchOnWindowFocus: false,
+        retry: 1,
       },
     },
   });

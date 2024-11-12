@@ -2,6 +2,7 @@ import { Button, Col, Flex, Input, Modal, Typography } from 'antd';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { api } from '~/react';
+import { useNavigate } from '@remix-run/react';
 
 interface PropTypes {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface PropTypes {
 
 const CreateRoomModal = ({ isOpen, onClose }: PropTypes) => {
   const { mutateAsync } = api.rooms.create.useMutation();
+  const navigate = useNavigate();
 
   const form = useFormik({
     initialValues: {
@@ -21,7 +23,11 @@ const CreateRoomModal = ({ isOpen, onClose }: PropTypes) => {
         .min(3, 'Room name must be at least 3 characters')
         .max(45, 'Room name must less than 45 characters'),
     }),
-    onSubmit: ({ roomName }) => mutateAsync({ name: roomName }),
+    onSubmit: async ({ roomName }) => {
+      const { id } = await mutateAsync({ name: roomName });
+      onClose();
+      navigate(`/rooms/${id}`);
+    },
   });
 
   return (
