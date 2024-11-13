@@ -1,5 +1,5 @@
 import { Card, Flex, Typography } from 'antd';
-import { User } from 'server/services/rooms/datastore';
+import { User } from 'server/services/datastore/datastore';
 import { useAuth } from '~/auth/AuthProvider';
 
 interface PropTypes {

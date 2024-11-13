@@ -1,8 +1,9 @@
-import { Room, update } from './datastore';
+import { update } from '../datastore/datastore';
 import { NotParticipantError } from './errors/NotParticipant';
-import { roomEventsChannel } from './events/event-channel';
-import { RoomEvents } from './events/room-events';
+import { roomEventsChannel } from '../events/event-channel';
+import { RoomEvents } from '../events/room-events';
 import { getRoom } from './get';
+import { Room } from '../datastore/types';
 
 interface LeaveRoomOptions {
   roomId: string;

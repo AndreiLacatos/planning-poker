@@ -1,23 +1,5 @@
 import lodash from 'lodash';
-
-export interface User {
-  userId: string;
-  userName: string;
-}
-
-interface Vote {
-  user: User;
-  value: number;
-}
-
-export interface Room {
-  id: string;
-  name: string;
-  createdBy: User;
-  state: 'voting' | 'revealed';
-  participants: User[];
-  votes: Vote[];
-}
+import { Room } from './types';
 
 const rooms = new Map<string, Room>();
 

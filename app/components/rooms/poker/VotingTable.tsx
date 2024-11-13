@@ -1,7 +1,7 @@
 import { Card, Flex, Typography } from 'antd';
 import { useRoomStore } from '~/store/room';
 import Participant from './Participant';
-import { User } from 'server/services/rooms/datastore';
+import { User } from 'server/services/datastore/datastore';
 
 const VotingTable = () => {
   const { room } = useRoomStore();

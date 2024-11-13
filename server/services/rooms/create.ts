@@ -1,12 +1,10 @@
-import { add, Room } from './datastore';
+import { add } from '../datastore/datastore';
 import { v4 as uuid } from 'uuid';
+import { User, Room } from '../datastore/types';
 
 interface CreateRoomOptions {
   name: string;
-  user: {
-    userId: string;
-    userName: string;
-  };
+  user: User;
 }
 
 export const createRoom = ({ name, user }: CreateRoomOptions): Room => {

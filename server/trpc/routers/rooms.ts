@@ -3,11 +3,6 @@ import { createTRPCRouter, protectedProcedure } from '../trpc';
 import z from 'zod';
 import { getRoom } from 'server/services/rooms/get';
 import { joinRoom } from 'server/services/rooms/join';
-import { leaveRoom } from 'server/services/rooms/leave';
-import { observable } from '@trpc/server/observable';
-import { roomEventsChannel } from 'server/services/rooms/events/event-channel';
-import { RoomEvents } from 'server/services/rooms/events/room-events';
-import { Room } from 'server/services/rooms/datastore';
 
 export const roomRouter = createTRPCRouter({
   fetch: protectedProcedure
@@ -30,22 +25,4 @@ export const roomRouter = createTRPCRouter({
     .mutation(({ input: { roomId }, ctx: { identity } }) =>
       joinRoom({ roomId, user: identity })
     ),
-  events: protectedProcedure
-    .input(z.object({ roomId: z.string().uuid() }))
-    .subscription(({ ctx: { identity }, input: { roomId } }) => {
-      return observable<Room>((emit) => {
-        const push = (data: Room) => {
-          emit.next(data);
-        };
-        roomEventsChannel.on(RoomEvents.Join, push);
-        roomEventsChannel.on(RoomEvents.Leave, push);
-        return () => {
-          try {
-            roomEventsChannel.off(RoomEvents.Join, push);
-            roomEventsChannel.off(RoomEvents.Leave, push);
-            leaveRoom({ roomId, user: identity });
-          } catch {}
-        };
-      });
-    }),
 });

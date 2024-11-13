@@ -16,7 +16,7 @@ const PokerRoom = ({ roomId }: PropTypes) => {
     roomId,
   });
   const { update } = useRoomStore();
-  api.rooms.events.useSubscription(
+  api.events.stream.useSubscription(
     { roomId },
     {
       onData: update,

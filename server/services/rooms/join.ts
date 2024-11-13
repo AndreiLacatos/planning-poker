@@ -1,15 +1,13 @@
-import { Room, update } from './datastore';
+import { update } from '../datastore/datastore';
 import { AlreadyJoinedError } from './errors/AlreadyJoined';
 import { getRoom } from './get';
-import { RoomEvents } from './events/room-events';
-import { roomEventsChannel } from './events/event-channel';
+import { RoomEvents } from '../events/room-events';
+import { roomEventsChannel } from '../events/event-channel';
+import { User, Room } from '../datastore/types';
 
 interface JoinRoomOptions {
   roomId: string;
-  user: {
-    userId: string;
-    userName: string;
-  };
+  user: User;
 }
 
 export const joinRoom = ({ roomId, user }: JoinRoomOptions): Room => {

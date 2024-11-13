@@ -1,4 +1,5 @@
-import { get, Room } from './datastore';
+import { get } from '../datastore/datastore';
+import { Room } from '../datastore/types';
 import { RoomNotFoundError } from './errors/RoomNotFound';
 
 export const getRoom = (roomId: string): Room => {
