@@ -1,10 +1,10 @@
-import BaseCard from './BaseCard';
+import BaseVoteCard from './BaseVoteCard';
 import { IconGavel } from '@tabler/icons-react';
 const Voted = () => {
   return (
-    <BaseCard color="#183a70">
+    <BaseVoteCard color="#183a70">
       <IconGavel stroke={2} color="white" size="32" />
-    </BaseCard>
+    </BaseVoteCard>
   );
 };
 

@@ -4,7 +4,7 @@ interface PropTypes extends React.PropsWithChildren {
   color: string;
 }
 
-const BaseCard = ({ color, children }: PropTypes) => {
+const BaseVoteCard = ({ color, children }: PropTypes) => {
   return (
     <Card
       style={{
@@ -32,4 +32,4 @@ const BaseCard = ({ color, children }: PropTypes) => {
   );
 };
 
-export default BaseCard;
+export default BaseVoteCard;

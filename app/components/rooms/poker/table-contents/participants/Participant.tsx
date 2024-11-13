@@ -2,9 +2,9 @@ import { Card, Flex, Typography } from 'antd';
 import { User } from 'server/services/datastore/types';
 import { useAuth } from '~/auth/AuthProvider';
 import { useRoomStore } from '~/store/room';
-import VoteRevealed from './VoteRevealed';
-import Voted from './Voted';
-import VotePending from './VotePending';
+import VoteRevealed from './votes/VoteRevealed';
+import Voted from './votes/Voted';
+import VotePending from './votes/VotePending';
 
 interface PropTypes {
   participant: User;
@@ -24,8 +24,10 @@ const Participant = ({ participant }: PropTypes) => {
   switch (room.state) {
     case 'revealed':
       card = <VoteRevealed vote={vote} />;
+      break;
     case 'voting':
       card = vote ? <Voted /> : <VotePending />;
+      break;
   }
 
   return (

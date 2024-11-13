@@ -1,5 +1,5 @@
 import { Vote } from 'server/services/datastore/types';
-import BaseCard from './BaseCard';
+import BaseVoteCard from './BaseVoteCard';
 import { Typography } from 'antd';
 import { IconCoffee } from '@tabler/icons-react';
 
@@ -26,7 +26,7 @@ const VoteRevealed = ({ vote }: PropTypes) => {
       </Typography.Text>
     );
   }
-  return <BaseCard color="#e7e7e7">{voteElement}</BaseCard>;
+  return <BaseVoteCard color="#e7e7e7">{voteElement}</BaseVoteCard>;
 };
 
 export default VoteRevealed;
