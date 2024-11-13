@@ -1,7 +1,7 @@
 import { Vote } from 'server/services/datastore/types';
 import BaseVoteCard from './BaseVoteCard';
 import { Typography } from 'antd';
-import { IconCoffee } from '@tabler/icons-react';
+import { TbCoffee } from 'react-icons/tb';
 
 interface PropTypes {
   vote: Vote | undefined;
@@ -17,7 +17,7 @@ const VoteRevealed = ({ vote }: PropTypes) => {
         </Typography.Text>
       );
     } else {
-      voteElement = <IconCoffee stroke={2} size="32" />;
+      voteElement = <TbCoffee size="32" />;
     }
   } else {
     voteElement = (

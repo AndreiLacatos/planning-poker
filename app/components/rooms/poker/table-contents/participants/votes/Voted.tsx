@@ -1,9 +1,10 @@
 import BaseVoteCard from './BaseVoteCard';
-import { IconGavel } from '@tabler/icons-react';
+import { TbGavel } from 'react-icons/tb';
+
 const Voted = () => {
   return (
     <BaseVoteCard color="#183a70">
-      <IconGavel stroke={2} color="white" size="32" />
+      <TbGavel stroke="white" size="32" />
     </BaseVoteCard>
   );
 };

@@ -1,10 +1,10 @@
 import BaseVoteCard from './BaseVoteCard';
-import { IconBrain } from '@tabler/icons-react';
+import { TbBrain } from 'react-icons/tb';
 
 const VotePending = () => {
   return (
     <BaseVoteCard color="#5a8cdb">
-      <IconBrain stroke={2} color="white" size="32" />
+      <TbBrain stroke="white" color="white" size="32" />
     </BaseVoteCard>
   );
 };

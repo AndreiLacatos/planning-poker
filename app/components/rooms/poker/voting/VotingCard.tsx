@@ -1,7 +1,7 @@
 import { Card, Flex, message, Typography } from 'antd';
 import { api } from '~/react';
 import { useRoomStore } from '~/store/room';
-import { IconCoffee } from '@tabler/icons-react';
+import { TbCoffee } from 'react-icons/tb';
 import { useAuth } from '~/auth/AuthProvider';
 
 interface PropTypes {
@@ -63,7 +63,7 @@ const VotingCard = ({ value }: PropTypes) => {
             {value}
           </Typography.Text>
         ) : (
-          <IconCoffee stroke={2} size="38" />
+          <TbCoffee size="38" />
         )}
       </Flex>
     </Card>
