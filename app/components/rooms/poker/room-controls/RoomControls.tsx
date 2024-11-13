@@ -1,6 +1,7 @@
 import { Flex } from 'antd';
 import Reset from './Reset';
 import Reveal from './Reveal';
+import Invite from './Invite';
 
 const RoomControls = () => {
   return (
@@ -14,6 +15,7 @@ const RoomControls = () => {
         padding: '2rem',
       }}
     >
+      <Invite />
       <Reset />
       <Reveal />
     </Flex>
