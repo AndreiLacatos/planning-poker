@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useNavigate } from '@remix-run/react';
 import { useRoomStore } from '~/store/room';
 import VotingTable from './VotingTable';
+import RoomControls from './room-controls/RoomControls';
 
 interface PropTypes {
   roomId: string;
@@ -47,8 +48,9 @@ const PokerRoom = ({ roomId }: PropTypes) => {
   }
 
   return (
-    <Card style={{ width: '90%', height: '44rem' }}>
+    <Card style={{ width: '90%', height: '44rem', position: 'relative' }}>
       <VotingTable />
+      <RoomControls />
     </Card>
   );
 };
