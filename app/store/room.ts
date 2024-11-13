@@ -1,5 +1,5 @@
+import { Room } from 'server/services/datastore/types';
 import { create } from 'zustand';
-import { type Room } from 'server/trpc/routers/rooms';
 
 interface RoomStoreState {
   room: Room | undefined;

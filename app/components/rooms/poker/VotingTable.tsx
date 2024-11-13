@@ -1,7 +1,8 @@
-import { Card, Flex, Typography } from 'antd';
+import { Card, Flex } from 'antd';
 import { useRoomStore } from '~/store/room';
-import Participant from './Participant';
-import { User } from 'server/services/datastore/datastore';
+import Participant from './table-contents/participants/Participant';
+import { User } from 'server/services/datastore/types';
+import TableContents from './table-contents/TableContents';
 
 const VotingTable = () => {
   const { room } = useRoomStore();
@@ -45,9 +46,7 @@ const VotingTable = () => {
             alignItems: 'center',
           }}
         >
-          <Typography.Text style={{ color: 'white' }}>
-            {room.state === 'voting' ? 'Waiting...' : ''}
-          </Typography.Text>
+          <TableContents />
         </Flex>
       </Card>
       <Flex
