@@ -43,7 +43,7 @@ const VotingCard = ({ value }: PropTypes) => {
           userVote && isSelectedVote ? '#183a70' : 'transparent'
         }`,
         position: 'relative',
-        cursor: 'pointer',
+        cursor: room.state === 'voting' ? 'pointer' : 'not-allowed',
         boxSizing: 'content-box',
       }}
     >

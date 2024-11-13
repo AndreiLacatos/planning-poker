@@ -11,7 +11,9 @@ const Revealed = () => {
     return acc && value === room.votes[0].value;
   }, true);
   return (
-    <Typography.Text style={{ color: 'white' }}>
+    <Typography.Text
+      style={{ color: 'white', fontWeight: 600, fontSize: '1.4rem' }}
+    >
       {isConsensus && 'Consensus!'}
     </Typography.Text>
   );
