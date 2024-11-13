@@ -24,6 +24,7 @@ export async function setupRemixServer(app: express.Express) {
   }
 
   app.use(express.static('build/client', { maxAge: '1h' }));
+  app.use(express.static('public'));
 
   app.use(
     '/api/trpc',
