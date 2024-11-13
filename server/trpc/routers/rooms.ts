@@ -2,16 +2,12 @@ import { createRoom } from 'server/services/rooms/create';
 import { createTRPCRouter, protectedProcedure } from '../trpc';
 import z from 'zod';
 import { getRoom } from 'server/services/rooms/get';
-import type { inferProcedureOutput } from '@trpc/server';
 import { joinRoom } from 'server/services/rooms/join';
 import { leaveRoom } from 'server/services/rooms/leave';
 import { observable } from '@trpc/server/observable';
-
-type RoomRouter = typeof roomRouter;
-
-export type Room = inferProcedureOutput<RoomRouter['fetch']>;
-
-export type Participant = Room['participants'][0];
+import { roomEventsChannel } from 'server/services/rooms/events/event-channel';
+import { RoomEvents } from 'server/services/rooms/events/room-events';
+import { Room } from 'server/services/rooms/datastore';
 
 export const roomRouter = createTRPCRouter({
   fetch: protectedProcedure
@@ -37,9 +33,16 @@ export const roomRouter = createTRPCRouter({
   events: protectedProcedure
     .input(z.object({ roomId: z.string().uuid() }))
     .subscription(({ ctx: { identity }, input: { roomId } }) => {
-      return observable<void>(() => {
+      return observable<Room>((emit) => {
+        const push = (data: Room) => {
+          emit.next(data);
+        };
+        roomEventsChannel.on(RoomEvents.Join, push);
+        roomEventsChannel.on(RoomEvents.Leave, push);
         return () => {
           try {
+            roomEventsChannel.off(RoomEvents.Join, push);
+            roomEventsChannel.off(RoomEvents.Leave, push);
             leaveRoom({ roomId, user: identity });
           } catch {}
         };

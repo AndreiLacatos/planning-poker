@@ -1,7 +1,7 @@
 import { Card, Flex, Typography } from 'antd';
 import { useRoomStore } from '~/store/room';
 import Participant from './Participant';
-import { Participant as ParticipantType } from 'server/trpc/routers/rooms';
+import { User } from 'server/services/rooms/datastore';
 
 const VotingTable = () => {
   const { room } = useRoomStore();
@@ -14,7 +14,7 @@ const VotingTable = () => {
   const topRow = room.participants.slice(0, midpoint);
   const bottomRow = room.participants.slice(midpoint);
 
-  const mapParticipants = (participants: ParticipantType[]) => {
+  const mapParticipants = (participants: User[]) => {
     return participants.map((participant) => (
       <Participant key={participant.userId} participant={participant} />
     ));

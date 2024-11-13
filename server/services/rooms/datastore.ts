@@ -1,6 +1,6 @@
 import lodash from 'lodash';
 
-interface User {
+export interface User {
   userId: string;
   userName: string;
 }

@@ -1,6 +1,8 @@
 import { Room, update } from './datastore';
 import { AlreadyJoinedError } from './errors/AlreadyJoined';
 import { getRoom } from './get';
+import { RoomEvents } from './events/room-events';
+import { roomEventsChannel } from './events/event-channel';
 
 interface JoinRoomOptions {
   roomId: string;
@@ -19,5 +21,6 @@ export const joinRoom = ({ roomId, user }: JoinRoomOptions): Room => {
 
   room.participants.push(user);
   update(room);
+  roomEventsChannel.emit(RoomEvents.Join, room);
   return room;
 };

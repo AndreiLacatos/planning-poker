@@ -15,13 +15,13 @@ const PokerRoom = ({ roomId }: PropTypes) => {
   const { isLoading, data, error } = api.rooms.fetch.useQuery({
     roomId,
   });
+  const { update } = useRoomStore();
   api.rooms.events.useSubscription(
     { roomId },
     {
-      onData: console.log,
+      onData: update,
     }
   );
-  const { update } = useRoomStore();
   useEffect(() => {
     if (error?.data?.code === 'NOT_FOUND') {
       message.error('Room not found!');

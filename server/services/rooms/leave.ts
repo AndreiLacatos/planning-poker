@@ -1,5 +1,7 @@
 import { Room, update } from './datastore';
 import { NotParticipantError } from './errors/NotParticipant';
+import { roomEventsChannel } from './events/event-channel';
+import { RoomEvents } from './events/room-events';
 import { getRoom } from './get';
 
 interface LeaveRoomOptions {
@@ -26,5 +28,6 @@ export const leaveRoom = ({ roomId, user }: LeaveRoomOptions): Room => {
   room.state = room.participants.length === 0 ? 'voting' : room.state;
 
   update(room);
+  roomEventsChannel.emit(RoomEvents.Leave, room);
   return room;
 };

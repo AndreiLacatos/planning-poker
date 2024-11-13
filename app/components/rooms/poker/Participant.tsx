@@ -1,9 +1,9 @@
 import { Card, Flex, Typography } from 'antd';
-import { Participant as ParticipantType } from 'server/trpc/routers/rooms';
+import { User } from 'server/services/rooms/datastore';
 import { useAuth } from '~/auth/AuthProvider';
 
 interface PropTypes {
-  participant: ParticipantType;
+  participant: User;
 }
 
 const Participant = ({ participant }: PropTypes) => {
