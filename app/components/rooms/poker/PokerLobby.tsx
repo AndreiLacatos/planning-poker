@@ -22,6 +22,7 @@ const PokerLobby = ({ roomId }: PropTypes) => {
     if (error?.data?.code === 'NOT_FOUND') {
       message.error('Room not found!');
       navigate('/');
+      return;
     }
     if (!!error?.data?.code && error.data.code !== 'BAD_REQUEST') {
       // backend throws BAD_REQUEST if the user is already in the room
