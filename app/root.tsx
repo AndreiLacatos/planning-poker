@@ -8,6 +8,7 @@ import { Layout } from 'antd';
 import { Content, Header } from 'antd/es/layout/layout';
 import 'normalize.css';
 import AppHeader from './components/header/AppHeader';
+import './root.css';
 
 export default function App() {
   return (
