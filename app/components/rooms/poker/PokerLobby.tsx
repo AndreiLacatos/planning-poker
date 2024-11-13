@@ -24,9 +24,13 @@ const PokerLobby = ({ roomId }: PropTypes) => {
       navigate('/');
       return;
     }
-    if (!!error?.data?.code && error.data.code !== 'BAD_REQUEST') {
+    if (!!error?.data?.code && error.data.code === 'BAD_REQUEST') {
       // backend throws BAD_REQUEST if the user is already in the room
       // that is ignored, otherwise throw unknown error
+      if (error.message.includes('has already joined room')) {
+        return;
+      }
+
       message.error('Unknown error!');
       navigate('/');
     }
