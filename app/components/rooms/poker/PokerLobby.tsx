@@ -1,9 +1,9 @@
-import { Flex, message, Spin } from 'antd';
 import { useEffect } from 'react';
 import { api } from '~/react';
-import { LoadingOutlined } from '@ant-design/icons';
 import { useNavigate } from '@remix-run/react';
 import PokerRoom from './PokerRoom';
+import { toaster } from '~/components/ui/toaster';
+import { Flex, Spinner } from '@chakra-ui/react';
 
 interface PropTypes {
   roomId: string;
@@ -20,7 +20,7 @@ const PokerLobby = ({ roomId }: PropTypes) => {
 
   useEffect(() => {
     if (error?.data?.code === 'NOT_FOUND') {
-      message.error('Room not found!');
+      toaster.error({ title: 'Room not found!' });
       navigate('/');
       return;
     }
@@ -31,7 +31,7 @@ const PokerLobby = ({ roomId }: PropTypes) => {
         return;
       }
 
-      message.error('Unknown error!');
+      toaster.error({ title: 'Unknown error!' });
       navigate('/');
     }
   }, [error?.data?.code]);
@@ -39,7 +39,7 @@ const PokerLobby = ({ roomId }: PropTypes) => {
   if (isLoading) {
     return (
       <Flex align="center">
-        <Spin indicator={<LoadingOutlined spin />} size="large" />
+        <Spinner size="lg" />
       </Flex>
     );
   }

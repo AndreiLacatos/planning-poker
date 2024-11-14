@@ -1,8 +1,9 @@
-import { Card, Flex, message, Typography } from 'antd';
 import { api } from '~/react';
 import { useRoomStore } from '~/store/room';
 import { TbCoffee } from 'react-icons/tb';
 import { useAuth } from '~/auth/AuthProvider';
+import { Card, Flex, Text } from '@chakra-ui/react';
+import { toaster } from '~/components/ui/toaster';
 
 interface PropTypes {
   value: number | undefined;
@@ -23,7 +24,7 @@ const VotingCard = ({ value }: PropTypes) => {
     try {
       await mutateAsync({ roomId: room.id, vote: value });
     } catch {
-      message.error('Could not submit vote!');
+      toaster.error({ title: 'Could not submit vote!' });
     }
   };
 
@@ -33,7 +34,7 @@ const VotingCard = ({ value }: PropTypes) => {
   const isSelectedVote = userVote?.value === value;
 
   return (
-    <Card
+    <Card.Root
       onClick={handleSubmitVote}
       style={{
         width: '3.9rem',
@@ -48,25 +49,23 @@ const VotingCard = ({ value }: PropTypes) => {
       }}
     >
       <Flex
-        style={{
-          width: '3.9rem',
-          height: '6.2rem',
-          justifyContent: 'center',
-          alignItems: 'center',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-        }}
+        width="3.9rem"
+        height="6.2rem"
+        justifyContent="center"
+        alignItems="center"
+        position="absolute"
+        top={0}
+        left={0}
       >
         {value ? (
-          <Typography.Text style={{ fontSize: '2rem', fontWeight: 600 }}>
+          <Text fontSize="2rem" fontWeight={600}>
             {value}
-          </Typography.Text>
+          </Text>
         ) : (
           <TbCoffee size="38" />
         )}
       </Flex>
-    </Card>
+    </Card.Root>
   );
 };
 

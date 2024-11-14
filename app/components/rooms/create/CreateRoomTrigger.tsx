@@ -1,16 +1,29 @@
-import { Button } from 'antd';
-import { useState } from 'react';
-import CreateRoomModal from './CreateRoomModal';
+import { Button } from '~/components/ui/button';
+import {
+  DialogBody,
+  DialogContent,
+  DialogRoot,
+  DialogTrigger,
+} from '~/components/ui/dialog';
+import CreateRoomModalContent from './CreateRoomModalContent';
 
 const CreateRoomTrigger = () => {
-  const [isOpen, setIsOpen] = useState(false);
   return (
-    <>
-      <Button size="large" onClick={() => setIsOpen(true)}>
-        Create room
-      </Button>
-      <CreateRoomModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
-    </>
+    <DialogRoot
+      size="md"
+      placement="center"
+      motionPreset="slide-in-bottom"
+      unmountOnExit
+    >
+      <DialogTrigger asChild>
+        <Button variant="outline">Create room</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogBody>
+          <CreateRoomModalContent />
+        </DialogBody>
+      </DialogContent>
+    </DialogRoot>
   );
 };
 

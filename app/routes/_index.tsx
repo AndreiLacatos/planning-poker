@@ -1,5 +1,5 @@
+import { Card, Flex } from '@chakra-ui/react';
 import { MetaFunction } from '@remix-run/react';
-import { Card, Flex } from 'antd';
 import CreateRoomTrigger from '~/components/rooms/create/CreateRoomTrigger';
 import JoinRoomTrigger from '~/components/rooms/join/JoinRoomTrigger';
 
@@ -9,23 +9,24 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <Card
-      style={{
-        width: '35%',
-        padding: '4rem',
-        boxSizing: 'border-box',
-      }}
+    <Card.Root
+      width={{ base: '95%', lg: '65%', xl: '40%' }}
+      background="white"
+      borderRadius="2rem"
+      paddingInline="2rem"
+      paddingBlock={{ base: '2rem', md: '4rem' }}
+      borderWidth={0}
+      shadow="xl"
     >
       <Flex
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '2rem',
-        }}
+        flexDirection={{ base: 'column', md: 'row' }}
+        gap="2rem"
+        alignItems="center"
+        justifyContent="center"
       >
         <JoinRoomTrigger />
         <CreateRoomTrigger />
       </Flex>
-    </Card>
+    </Card.Root>
   );
 }

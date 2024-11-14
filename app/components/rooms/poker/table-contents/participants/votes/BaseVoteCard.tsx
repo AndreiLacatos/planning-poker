@@ -1,4 +1,4 @@
-import { Card, Flex } from 'antd';
+import { Card, Flex } from '@chakra-ui/react';
 
 interface PropTypes extends React.PropsWithChildren {
   color: string;
@@ -6,29 +6,25 @@ interface PropTypes extends React.PropsWithChildren {
 
 const BaseVoteCard = ({ color, children }: PropTypes) => {
   return (
-    <Card
-      style={{
-        width: '3.4rem',
-        height: '5.7rem',
-        background: color,
-        padding: '.2rem',
-        position: 'relative',
-      }}
+    <Card.Root
+      width="3.4rem"
+      height="5.7rem"
+      background={color}
+      padding=".2rem"
+      position="relative"
     >
       <Flex
-        style={{
-          width: '3.4rem',
-          height: '5.7rem',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-        }}
+        width="3.4rem"
+        height="5.7rem"
+        alignItems="center"
+        justifyContent="center"
+        position="absolute"
+        top={0}
+        left={0}
       >
         {children}
       </Flex>
-    </Card>
+    </Card.Root>
   );
 };
 

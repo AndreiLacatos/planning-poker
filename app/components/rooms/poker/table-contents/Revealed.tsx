@@ -1,5 +1,5 @@
-import { Typography } from 'antd';
 import { useRoomStore } from '~/store/room';
+import { Text } from '@chakra-ui/react';
 
 const Revealed = () => {
   const { room } = useRoomStore();
@@ -11,11 +11,9 @@ const Revealed = () => {
     return acc && value === room.votes[0].value;
   }, true);
   return (
-    <Typography.Text
-      style={{ color: 'white', fontWeight: 600, fontSize: '1.4rem' }}
-    >
+    <Text style={{ color: 'white', fontWeight: 600, fontSize: '1.4rem' }}>
       {isConsensus && 'Consensus!'}
-    </Typography.Text>
+    </Text>
   );
 };
 

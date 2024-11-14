@@ -1,5 +1,5 @@
-import { Typography } from 'antd';
 import { useAuth } from '~/auth/AuthProvider';
+import { Text } from '@chakra-ui/react';
 
 const User = () => {
   const { user } = useAuth();
@@ -9,9 +9,9 @@ const User = () => {
   }
 
   return (
-    <Typography.Text style={{ color: '#FFF', fontSize: '1.6rem' }}>
+    <Text fontSize="2xl" color="white">
       Hello {user.userName}!
-    </Typography.Text>
+    </Text>
   );
 };
 

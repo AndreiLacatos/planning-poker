@@ -1,10 +1,10 @@
-import { Card, Flex, Typography } from 'antd';
 import { User } from 'server/services/datastore/types';
 import { useAuth } from '~/auth/AuthProvider';
 import { useRoomStore } from '~/store/room';
 import VoteRevealed from './votes/VoteRevealed';
 import Voted from './votes/Voted';
 import VotePending from './votes/VotePending';
+import { Text, Flex } from '@chakra-ui/react';
 
 interface PropTypes {
   participant: User;
@@ -31,13 +31,11 @@ const Participant = ({ participant }: PropTypes) => {
   }
 
   return (
-    <Flex
-      style={{ flexDirection: 'column', gap: '.6rem', alignItems: 'center' }}
-    >
+    <Flex flexDirection="column" gap=".6rem" alignItems="center">
       {card}
-      <Typography.Text>
+      <Text>
         {participant.userId === user?.userId ? 'You' : participant.userName}
-      </Typography.Text>
+      </Text>
     </Flex>
   );
 };

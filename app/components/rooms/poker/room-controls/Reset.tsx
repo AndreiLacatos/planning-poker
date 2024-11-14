@@ -1,4 +1,5 @@
-import { Button, message } from 'antd';
+import { Button } from '~/components/ui/button';
+import { toaster } from '~/components/ui/toaster';
 import { api } from '~/react';
 import { useRoomStore } from '~/store/room';
 
@@ -13,14 +14,14 @@ const Reset = () => {
     try {
       await mutateAsync({ roomId: room.id });
     } catch {
-      message.error('Could not reset votes!');
+      toaster.error({ title: 'Could not reset votes!' });
     }
   };
 
   return (
     <Button
       onClick={handleReset}
-      size="large"
+      variant="outline"
       disabled={room.state !== 'revealed'}
     >
       Reset

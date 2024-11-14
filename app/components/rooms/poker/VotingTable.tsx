@@ -1,9 +1,9 @@
-import { Card, Flex } from 'antd';
 import { useRoomStore } from '~/store/room';
 import Participant from './table-contents/participants/Participant';
 import { User } from 'server/services/datastore/types';
 import TableContents from './table-contents/TableContents';
 import VotingCards from './voting/VotingCards';
+import { Card, Flex } from '@chakra-ui/react';
 
 const VotingTable = () => {
   const { room } = useRoomStore();
@@ -25,43 +25,27 @@ const VotingTable = () => {
   return (
     <>
       <Flex
-        style={{
-          width: '100%',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '32rem',
-          gap: '2.2rem',
-          flexDirection: 'column',
-        }}
+        width="100%"
+        alignItems="center"
+        justifyContent="center"
+        height="32rem"
+        gap="2.2rem"
+        flexDirection="column"
       >
-        <Flex
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '4rem',
-          }}
-        >
+        <Flex alignItems="center" justifyContent="center" gap="4rem">
           {mapParticipants(topRow)}
         </Flex>
-        <Card style={{ background: '#426ff5', width: '18rem', height: '8rem' }}>
+        <Card.Root background="#426ff5" width="18rem" height="8rem">
           <Flex
-            style={{
-              height: '6rem',
-              width: '100%',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
+            height="6rem"
+            width="100%"
+            justifyContent="center"
+            alignItems="center"
           >
             <TableContents />
           </Flex>
-        </Card>
-        <Flex
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '4rem',
-          }}
-        >
+        </Card.Root>
+        <Flex alignItems="center" justifyContent="center" gap="4rem">
           {mapParticipants(bottomRow)}
         </Flex>
       </Flex>

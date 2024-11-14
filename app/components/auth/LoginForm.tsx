@@ -1,8 +1,8 @@
-import { Button, Col, Flex, Input, Typography } from 'antd';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { UserOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import { Box, Flex, Input, Text } from '@chakra-ui/react';
+import { Button } from '../ui/button';
 
 const LoginForm = () => {
   const form = useFormik({
@@ -25,7 +25,7 @@ const LoginForm = () => {
         paddingBlock: '2rem',
       }}
     >
-      <Col
+      <Box
         style={{
           paddingBlock: '1rem',
         }}
@@ -36,16 +36,12 @@ const LoginForm = () => {
           name="userName"
           value={form.values.userName}
           onChange={form.handleChange}
-          size="large"
-          prefix={<UserOutlined />}
-          status={form.isValid ? undefined : 'error'}
         />
-        <Typography.Text type="danger">{form.errors.userName}</Typography.Text>
-      </Col>
+        <Text color="red">{form.errors.userName}</Text>
+      </Box>
       <Flex justify="flex-end">
         <Button
-          htmlType="submit"
-          type="primary"
+          type="submit"
           loading={form.isSubmitting}
           disabled={!form.isValid}
         >

@@ -1,4 +1,4 @@
-import { Flex } from 'antd';
+import { Flex } from '@chakra-ui/react';
 import VotingCard from './VotingCard';
 import { generateFibonacci } from './fibonacci-generator';
 

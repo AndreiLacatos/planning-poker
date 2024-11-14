@@ -1,11 +1,11 @@
-import { Card, Flex, message, Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
 import { api } from '~/react';
 import { useEffect } from 'react';
 import { useNavigate } from '@remix-run/react';
 import { useRoomStore } from '~/store/room';
 import VotingTable from './VotingTable';
 import RoomControls from './room-controls/RoomControls';
+import { Card, Flex, Spinner } from '@chakra-ui/react';
+import { toaster } from '~/components/ui/toaster';
 
 interface PropTypes {
   roomId: string;
@@ -25,7 +25,7 @@ const PokerRoom = ({ roomId }: PropTypes) => {
   );
   useEffect(() => {
     if (error?.data?.code === 'NOT_FOUND') {
-      message.error('Room not found!');
+      toaster.error({ title: 'Room not found!' });
       navigate('/');
     }
   }, [error?.data?.code]);
@@ -42,16 +42,26 @@ const PokerRoom = ({ roomId }: PropTypes) => {
   if (isLoading) {
     return (
       <Flex align="center">
-        <Spin indicator={<LoadingOutlined spin />} size="large" />
+        <Spinner size="lg" />
       </Flex>
     );
   }
 
   return (
-    <Card style={{ width: '90%', height: '44rem', position: 'relative' }}>
+    <Card.Root
+      height="44rem"
+      position="relative"
+      width={{ base: '95%', lg: '85%' }}
+      background="white"
+      borderRadius="2rem"
+      paddingInline="2rem"
+      paddingBlock={{ base: '2rem', md: '4rem' }}
+      borderWidth={0}
+      shadow="xl"
+    >
       <VotingTable />
       <RoomControls />
-    </Card>
+    </Card.Root>
   );
 };
 

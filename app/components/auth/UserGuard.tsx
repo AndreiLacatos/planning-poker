@@ -1,6 +1,11 @@
 import { useAuth } from '~/auth/AuthProvider';
-import { Modal } from 'antd';
 import LoginForm from './LoginForm';
+import {
+  DialogBackdrop,
+  DialogBody,
+  DialogContent,
+  DialogRoot,
+} from '../ui/dialog';
 
 const UserGuard = ({ children }: React.PropsWithChildren) => {
   const { user } = useAuth();
@@ -9,9 +14,22 @@ const UserGuard = ({ children }: React.PropsWithChildren) => {
   }
 
   return (
-    <Modal open={!user} closable={false} footer={null} centered>
-      <LoginForm />
-    </Modal>
+    <DialogRoot
+      size="md"
+      placement="center"
+      motionPreset="slide-in-bottom"
+      unmountOnExit
+      closeOnEscape={false}
+      closeOnInteractOutside={false}
+      defaultOpen
+    >
+      <DialogBackdrop background="gray.200" />
+      <DialogContent>
+        <DialogBody>
+          <LoginForm />
+        </DialogBody>
+      </DialogContent>
+    </DialogRoot>
   );
 };
 

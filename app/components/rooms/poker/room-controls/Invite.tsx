@@ -1,17 +1,14 @@
-import { Button, message } from 'antd';
+import { Button } from '~/components/ui/button';
+import { toaster } from '~/components/ui/toaster';
 
 const Invite = () => {
   const handleInvite = () => {
     navigator.clipboard
       .writeText(window.location.toString())
-      .then(() => message.info('Invitation link copied!'))
-      .catch(() => message.error('Could not copy invitation link!'));
+      .then(() => toaster.success({ title: 'Invitation link copied!' }))
+      .catch(() => toaster.error({ title: 'Could not copy invitation link!' }));
   };
-  return (
-    <Button size="large" onClick={handleInvite}>
-      Invite
-    </Button>
-  );
+  return <Button onClick={handleInvite}>Invite</Button>;
 };
 
 export default Invite;
