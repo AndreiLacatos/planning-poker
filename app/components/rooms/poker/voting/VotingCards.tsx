@@ -6,7 +6,7 @@ const VotingCards = () => {
   const options = generateFibonacci(7);
 
   return (
-    <Flex style={{ gap: '1.6rem', justifyContent: 'center' }}>
+    <Flex gap="1.6rem" justifyContent="center" wrap="wrap">
       <VotingCard value={undefined} />
       {options.map((value) => (
         <VotingCard key={value} value={value} />

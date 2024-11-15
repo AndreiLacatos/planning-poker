@@ -1,4 +1,4 @@
-import { Links, Meta, Outlet, Scripts } from '@remix-run/react';
+import { Links, Meta, MetaFunction, Outlet, Scripts } from '@remix-run/react';
 import { TRPCReactProvider } from './react';
 import { ClientOnly } from 'remix-utils/client-only';
 import AuthProvider from './auth/AuthProvider';
@@ -10,6 +10,17 @@ import './root.css';
 import { Provider as ChakraProvider } from '@/components/ui/provider';
 import { Box, Center, Stack } from '@chakra-ui/react';
 import { Toaster } from '@/components/ui/toaster';
+
+export const meta: MetaFunction = () => {
+  return [
+    {
+      name: 'viewport',
+      content: 'width=device-width, initial-scale=1',
+    },
+    { title: 'Planning Poker' },
+  ];
+};
+
 export default function App() {
   return (
     <html>

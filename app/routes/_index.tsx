@@ -1,11 +1,6 @@
 import { Card, Flex } from '@chakra-ui/react';
-import { MetaFunction } from '@remix-run/react';
 import CreateRoomTrigger from '~/components/rooms/create/CreateRoomTrigger';
 import JoinRoomTrigger from '~/components/rooms/join/JoinRoomTrigger';
-
-export const meta: MetaFunction = () => {
-  return [{ title: 'Planning Poker' }];
-};
 
 export default function Index() {
   return (

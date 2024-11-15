@@ -32,7 +32,11 @@ const VotingTable = () => {
         gap="2.2rem"
         flexDirection="column"
       >
-        <Flex alignItems="center" justifyContent="center" gap="4rem">
+        <Flex
+          alignItems="center"
+          justifyContent="center"
+          gap={{ base: '.8rem', md: '4rem' }}
+        >
           {mapParticipants(topRow)}
         </Flex>
         <Card.Root background="#426ff5" width="18rem" height="8rem">

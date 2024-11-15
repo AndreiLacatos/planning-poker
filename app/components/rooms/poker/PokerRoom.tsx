@@ -49,7 +49,8 @@ const PokerRoom = ({ roomId }: PropTypes) => {
 
   return (
     <Card.Root
-      height="44rem"
+      marginBlock="2rem"
+      minHeight="44rem"
       position="relative"
       width={{ base: '95%', lg: '85%' }}
       background="white"
@@ -59,8 +60,8 @@ const PokerRoom = ({ roomId }: PropTypes) => {
       borderWidth={0}
       shadow="xl"
     >
-      <VotingTable />
       <RoomControls />
+      <VotingTable />
     </Card.Root>
   );
 };
