@@ -29,7 +29,9 @@ export const eventRouter = createTRPCRouter({
             roomEventsChannel.off(RoomEvents.Reveal, push);
             roomEventsChannel.off(RoomEvents.Reset, push);
             leaveRoom({ roomId, user: identity });
-          } catch {}
+          } catch (error) {
+            console.error(`Unexpected error: ${error}`);
+          }
         };
       });
     }),

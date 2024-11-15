@@ -6,7 +6,7 @@ const Voting = () => {
   if (!room) {
     return null;
   }
-  let remainingVotes = room.participants.length - room.votes.length;
+  const remainingVotes = room.participants.length - room.votes.length;
   return (
     <Text color="white" fontSize="1.4rem" fontWeight={600}>
       Waiting for {remainingVotes} {remainingVotes === 1 ? 'vote' : 'votes'}

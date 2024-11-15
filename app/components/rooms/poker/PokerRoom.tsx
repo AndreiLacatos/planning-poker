@@ -28,7 +28,7 @@ const PokerRoom = ({ roomId }: PropTypes) => {
       toaster.error({ title: 'Room not found!' });
       navigate('/');
     }
-  }, [error?.data?.code]);
+  }, [error?.data?.code, navigate]);
 
   useEffect(() => {
     if (data) {
@@ -37,7 +37,7 @@ const PokerRoom = ({ roomId }: PropTypes) => {
     return () => {
       update(undefined);
     };
-  }, [data]);
+  }, [data, update]);
 
   if (isLoading) {
     return (

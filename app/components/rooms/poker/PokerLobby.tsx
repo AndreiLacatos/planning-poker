@@ -16,7 +16,7 @@ const PokerLobby = ({ roomId }: PropTypes) => {
 
   useEffect(() => {
     void mutateAsync({ roomId });
-  }, [mutateAsync]);
+  }, [mutateAsync, roomId]);
 
   useEffect(() => {
     if (error?.data?.code === 'NOT_FOUND') {
@@ -34,7 +34,7 @@ const PokerLobby = ({ roomId }: PropTypes) => {
       toaster.error({ title: 'Unknown error!' });
       navigate('/');
     }
-  }, [error?.data?.code]);
+  }, [error?.data?.code, navigate, error?.message]);
 
   if (isLoading) {
     return (

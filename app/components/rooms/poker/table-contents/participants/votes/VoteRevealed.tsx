@@ -1,7 +1,7 @@
 import { Vote } from 'server/services/datastore/types';
 import BaseVoteCard from './BaseVoteCard';
 import { TbCoffee } from 'react-icons/tb';
-import { Text, Flex } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 
 interface PropTypes {
   vote: Vote | undefined;

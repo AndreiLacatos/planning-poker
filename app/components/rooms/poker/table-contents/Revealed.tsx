@@ -7,7 +7,7 @@ const Revealed = () => {
     return null;
   }
 
-  let isConsensus = room.votes.reduce((acc, { value }) => {
+  const isConsensus = room.votes.reduce((acc, { value }) => {
     return acc && value === room.votes[0].value;
   }, true);
   return (

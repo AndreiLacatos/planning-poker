@@ -23,7 +23,7 @@ export const meta: MetaFunction = () => {
 
 export default function App() {
   return (
-    <html>
+    <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <Meta />

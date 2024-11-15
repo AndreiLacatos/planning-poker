@@ -15,7 +15,7 @@ export const createTrpcHttpContext = (
 };
 
 export const createTrpcWsContext = (opts: CreateWSSContextFnOptions) => {
-  let cookieString = opts.req.headers.cookie;
+  const cookieString = opts.req.headers.cookie;
   return { identity: getIdentity(parse(cookieString || '')) };
 };
 

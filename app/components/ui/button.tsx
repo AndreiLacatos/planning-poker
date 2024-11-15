@@ -16,10 +16,11 @@ export interface ButtonProps extends ChakraButtonProps, ButtonLoadingProps {}
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   function Button(props, ref) {
-    let { loading, disabled, loadingText, children, ...rest } = props;
+    const { loading, disabled, loadingText, children, ...rest } = props;
+    let updatedProps = { ...rest };
     if (props.variant === 'outline') {
-      rest = {
-        ...rest,
+      updatedProps = {
+        ...updatedProps,
         color: 'blue.600',
         borderColor: 'blue.600',
         borderWidth: 2,
@@ -32,7 +33,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <ChakraButton
         disabled={loading || disabled}
         ref={ref}
-        {...rest}
+        {...updatedProps}
         colorPalette="blue"
         borderRadius="md"
       >

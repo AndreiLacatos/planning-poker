@@ -14,7 +14,7 @@ const authSchema = z.object({
 export function setupAuth(app: express.Express) {
   app.use(cookieParser());
   app.use(express.json());
-  app.use('/auth', (req, res, next) => {
+  app.use('/auth', (req, res) => {
     if (req.method === 'POST') {
       const { success, data, error } = authSchema.safeParse(req.body);
       if (!success) {
