@@ -7,9 +7,9 @@ import { CookiesProvider } from 'react-cookie';
 import 'normalize.css';
 import AppHeader from './components/header/AppHeader';
 import './root.css';
-import { Provider as ChakraProvider } from '@/components/ui/provider';
+import { Provider as ChakraProvider } from './components/ui/provider';
 import { Box, Center, Stack } from '@chakra-ui/react';
-import { Toaster } from '@/components/ui/toaster';
+import { Toaster } from './components/ui/toaster';
 
 export const meta: MetaFunction = () => {
   return [

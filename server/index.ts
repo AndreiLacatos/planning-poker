@@ -1,8 +1,8 @@
 import express from 'express';
-import { setupWsServer } from './ws/setup.js';
 import { setupRemixServer } from './http/setup.js';
-import { config } from 'dotenv';
 import { setupAuth } from './http/auth.js';
+import { config } from 'dotenv';
+import { setupWsServer } from './ws/setup.js';
 
 config();
 

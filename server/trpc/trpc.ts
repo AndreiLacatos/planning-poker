@@ -23,7 +23,7 @@ const getIdentity = (
   cookies: Record<string, string | undefined>
 ): UserIdentity | undefined => {
   let identity: UserIdentity | undefined = undefined;
-  if (cookies[AUTH_COOKIE]) {
+  if (cookies && cookies[AUTH_COOKIE]) {
     identity = JSON.parse(
       Buffer.from(cookies[AUTH_COOKIE], 'base64').toString('utf-8')
     ) as UserIdentity;
