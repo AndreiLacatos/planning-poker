@@ -40,5 +40,7 @@ jobs:
 
       - name: Build and Push Docker image
         run: |
-          docker build -t ${{ secrets.AZURE_REGISTRY }}/planningpoker:${{ steps.get_version.outputs.version }} .
-          docker push ${{ secrets.AZURE_REGISTRY }}/planningpoker:${{ steps.get_version.outputs.version }}
+          docker build -t $IMAGE_NAME .
+          docker push $IMAGE_NAME
+        env:
+          IMAGE_NAME: ${{ vars.AZURE_REGISTRY }}/planningpoker:${{ steps.get_version.outputs.version }}
