@@ -12,10 +12,8 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
-      - name: Fetch package.json
-        run: |
-          git fetch --depth 1
-          git checkout HEAD -- package.json
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Read version from package.json
         id: get_version
