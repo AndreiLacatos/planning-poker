@@ -4,8 +4,9 @@ import { useNavigate } from '@remix-run/react';
 import { useRoomStore } from '~/store/room';
 import VotingTable from './VotingTable';
 import RoomControls from './room-controls/RoomControls';
-import { Card, Flex, Spinner } from '@chakra-ui/react';
+import { Text, Card, Flex, Spinner } from '@chakra-ui/react';
 import { toaster } from '~/components/ui/toaster';
+import { IoPeopleCircleOutline } from "react-icons/io5";
 
 interface PropTypes {
   roomId: string;
@@ -13,7 +14,7 @@ interface PropTypes {
 
 const PokerRoom = ({ roomId }: PropTypes) => {
   const navigate = useNavigate();
-  const { isLoading, data, error } = api.rooms.fetch.useQuery({
+  const { isLoading, data: room, error } = api.rooms.fetch.useQuery({
     roomId,
   });
   const { update } = useRoomStore();
@@ -31,13 +32,13 @@ const PokerRoom = ({ roomId }: PropTypes) => {
   }, [error?.data?.code, navigate]);
 
   useEffect(() => {
-    if (data) {
-      update(data);
+    if (room) {
+      update(room);
     }
     return () => {
       update(undefined);
     };
-  }, [data, update]);
+  }, [room, update]);
 
   if (isLoading) {
     return (
@@ -60,6 +61,10 @@ const PokerRoom = ({ roomId }: PropTypes) => {
       borderWidth={0}
       shadow="xl"
     >
+      <Flex align='center' gap={2}>
+        <IoPeopleCircleOutline size={48} color='#5a8cdb' />
+        <Text fontSize='2xl'>{room?.name}</Text>
+      </Flex>
       <RoomControls />
       <VotingTable />
     </Card.Root>
